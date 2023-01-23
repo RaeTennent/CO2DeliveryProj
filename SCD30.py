@@ -90,6 +90,12 @@ class SCD30:
         value = measurement[12:]
         relh = struct.unpack('>f', value[0:2] + value[3:5])[0]
         return (co2, temperature, relh)
+    
+    @property
+    def CO2(self):
+        C = self.read_measurement()
+        (co2, temperature, relh) = C
+        return co2
 
     def get_status_ready(self):
         ready = self.__read_bytes(self.GET_STATUS_READY, 3)
